@@ -19,15 +19,20 @@ create database template template.xml
 =========================
 
 start:
-1. run basex web application, see http://docs.basex.org/wiki/Web_Application
+
+1.run basex web application, see http://docs.basex.org/wiki/Web_Application
+
 basexhttp
 
-2. run dispatcher
+2.run dispatcher 
+
 npm install 
+
 node dispatcher
 
-3. run test
-copy test.html to basex's webapp/static folder
+3.run test
+
+copy test.html to basex's webapp/static folder,
 open a browser, visit http://localhost:8984/static/test.html
 
 
