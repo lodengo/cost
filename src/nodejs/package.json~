@@ -1,0 +1,13 @@
+{
+  "name": "cost",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node dispatcher.js"
+  },
+  "dependencies": {
+    "redis": "*",   
+"simple-basex":"*",	
+	"generic-pool": "*"
+  }
+}
