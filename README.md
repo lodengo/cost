@@ -13,6 +13,9 @@ a cost unit have one "fees" and 0..* of child "cost unit".
 what's "fees"?
 
 fees consisted of 1..* fee which defines the fee name and calculate expr.
+
+show me the model?
+costfile.xsd
 ===================================
 solution
 the server response to the clients' operation, and add the affected cost-unit node(fees being dirty) to jobs pool.
