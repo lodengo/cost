@@ -1,15 +1,22 @@
 install:
+
 1. install nodejs, see http://nodejs.org/
 2. install basex, see http://basex.org/
 
+===============================
 setup:
+
 1. basex: see: http://docs.basex.org/wiki/Repository http://docs.basex.org/wiki/RESTXQ
 
 repo install Fees.jar
+
 repo install calcFunc.xqm
+
 repo install calculator.xqm
 
 create database template template.xml
+
+=========================
 
 start:
 1. run basex web application, see http://docs.basex.org/wiki/Web_Application
