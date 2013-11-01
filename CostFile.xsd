@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/CostFile"
+	xmlns:tns="http://www.example.org/CostFile" elementFormDefault="qualified">
+
+	<complexType name="cost">
+		<sequence>
+			<element name="fees" type="tns:fees" minOccurs="1" maxOccurs="1">
+			</element>
+			<element name="costType" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="costId" type="string" maxOccurs="1" minOccurs="1">
+			</element>
+			<any></any>
+			<element name="cost" type="tns:cost" maxOccurs="unbounded"
+				minOccurs="0"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="fees">
+		<sequence>
+			<element name="fee" type="tns:fee" maxOccurs="unbounded"
+				minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+	<complexType name="fee">
+		<sequence>
+			<element name="feeName" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="feeExpr" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="feeResult" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<any></any>
+			<element name="fee" type="tns:fee" maxOccurs="unbounded"
+				minOccurs="0">
+			</element>
+		</sequence>
+	</complexType>
+
+	<element name="cost" type="tns:cost"></element>
+</schema>

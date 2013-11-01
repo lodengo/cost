@@ -12,13 +12,13 @@ a cost node have one fees node and 0..* of child cost node.
 
 what's fees?
 
-fees consisted of 1..* fee which defines the feeName and feeExpr.
+fees consisted of 1..* fee which defines the fee name and calculate expr.
 
-show me the Schema?
+show me the model?
 CostFile.xsd
 ===================================
-this solution:
-the basex server response to the clients' operation, and add the affected cost node(fees being dirty) to jobs repertory (redis).
+solution
+the server response to the clients' operation, and add the affected cost-unit node(fees being dirty) to jobs pool.
 
 the dispatcher fetch a job and dispatch it to a worker, loop.
 
@@ -29,7 +29,6 @@ install:
 
 1. install nodejs, see http://nodejs.org/
 2. install basex, see http://basex.org/
-3. install redis, see http://redis.io/
 
 ===============================
 setup:
@@ -42,7 +41,7 @@ repo install calcFunc.xqm
 
 repo install calculator.xqm
 
-create database fees fees.xml
+create database template template.xml
 
 =========================
 

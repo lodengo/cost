@@ -6,7 +6,7 @@ declare function cf:u($u, $e){
 };
 
 declare function cf:nm($ns, $e){
-  if($ns/组价汇总/费用[费用名称=$e]) then  sum($ns/组价汇总/费用[费用名称=$e]/计算结果) 
+  if($ns/fees/fee[feeName=$e]) then  sum($ns/fees/fee[feeName=$e]/feeResult) 
   else  sum($ns//node()[name()=$e])
 };
 

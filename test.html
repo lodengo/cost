@@ -5,34 +5,100 @@
 <title>测试</title>
 <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 <script>
-function Tester(){	
+function random(){
+	return 	Math.floor(Math.random() * 1000);
+}
+
+function Tester(){
+	this.config = {
+			dxgcs: 2, //单项工程数量
+			dwgcs: 2, //每个单项工程包含的单位工程数量
+			fbfxs: 2, //每个单位工程包含的分部分项数量
+			qds: 100, //测试清单数量
+			des: 5 //每条清单的定额数量
+	};
+	
+	this.file = ""; //cost file id
+	this.ztgc = ""; //整体工程id
+	this.dxgc = []; //单项工程ids
+	this.dwgc = []; //单位工程ids
+	this.fbfx = []; //分部分项ids	
+	this.qd = []; //清单ids
+	this.de = []; //定额ids	
+	
+	this.init();
+}
+
+Tester.prototype.init = function(){
+	var me = this;
+	$.post('/cost', {type:'整体工程'}, function(data){
+		me.file = data.file;
+		me.ztgc = data.id;
+		
+		for (var i = 0; i < me.config.dxgcs; i++){
+			$.post('/cost', {type:'单项工程', file:me.file, parentid: me.ztgc}, function(data){
+				me.dxgc.push(data.id);
+				for (var j = 0; j < me.config.dwgcs; j++){
+					$.post('/cost', {type:'单位工程', file:me.file, parentid: data.id}, function(data){
+						me.dwgc.push(data.id);
+						
+						for(var k = 0; k < me.config.fbfxs; k++){
+							$.post('/cost', {type:'分部分项', file:me.file, parentid: data.id}, function(data){
+								me.fbfx.push(data.id);
+							});	
+						}
+					});	
+				}				
+			});
+		}		
+	});	
+}
+
+Tester.prototype.insertQd = function(callback){
+	var me = this;
+	var fbfxid = me.fbfx[Math.floor(Math.random() * me.fbfx.length)];
+	if(fbfxid){
+		var qd = "<清单><编码>"+random()+"</编码><工程量>"+random()+"</工程量></清单>";
+	
+		$.post('/cost', {type:'清单', node:qd, file:me.file, parentid: fbfxid}, function(data){
+			me.qd.push(data.id);
+			callback(data.id);
+		});
+	}
+}
+
+function gljs(){
+	var n = Math.floor(Math.random() * 10) + 1;
+	var types = ["人工", "材料", "机械"];
+	var gljs = "";
+	for(var i = 0; i < n; i++){		
+		gljs += "<工料机><类型>"+types[i%3]+"</类型><编码>"+random()+"</编码><单价>"+random()+"</单价><定额系数>"+Math.random()+"</定额系数></工料机>"
+	}
+	return gljs;
+}
+
+Tester.prototype.insertDe = function(qdid){
+	var me = this;	
+	var de = "<定额><编码>"+random()+"</编码><工程量>"+random()+"</工程量>"+gljs()+"</定额>";
+	$.post('/cost', {type:'定额', node:de, file:me.file, parentid: qdid}, function(data){
+		me.de.push(data.id);
+	});		
 }
 
 Tester.prototype.run = function(){
-	$.post('/node', {type:'整体工程'}, function(data){
-		var db = data.db;
-		var ztgc = data.id;
-		
-		$.post('/node', {type:'单项工程', db:db, parentid: ztgc}, function(data){
-			var dxgc = data.id;
-			$.post('/node', {type:'单位工程', db:db, parentid: dxgc}, function(data){
-				var dwgc = data.id;
-				$.post('/node', {type:'分部分项', db:db, parentid: dwgc}, function(data){
-					
-				});
-				$.post('/node', {type:'分部分项', db:db, parentid: dwgc}, function(data){
-					
-				});
-				
-			});
-			
+	var me = this;
+	for(var i = 0; i < me.config.qds; i++){
+		me.insertQd(function(qdid){
+			for(var j = 0; j < me.config.des; j++){
+				me.insertDe(qdid);	
+			}			
 		});
-	});
+	}
 }
 
 $(document).ready(function(){
 		var test = new Tester();
-		test.run();
+		setTimeout(function(){test.run();}, 2000);		
 })
 </script>
 </head>

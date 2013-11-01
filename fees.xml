@@ -1,0 +1,239 @@
+<fees>
+	<整体工程>
+		<fee>
+			<feeName>单项工程工程费合计</feeName>
+			<feeExpr>{f:nm($c/cost[costType='单项工程'], '工程总造价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>整体工程费用合计</feeName>
+			<feeExpr>0</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>工程总造价</feeName>
+			<feeExpr>[单项工程工程费合计]+[整体工程费用合计]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</整体工程>
+	<单项工程>
+		<fee>
+			<feeName>单位工程工程费合计</feeName>
+			<feeExpr>{f:nm($c/cost[costType='单位工程'], '工程总造价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>单项工程费用合计</feeName>
+			<feeExpr>[措施项目清单费用]+[其他项目清单费用]+[规费]+[税金]</feeExpr>
+			<feeResult>0</feeResult>
+			<fee>
+				<feeName>措施项目清单费用</feeName>
+				<feeExpr>0</feeExpr>
+				<feeResult>0</feeResult>
+			</fee>
+			<fee>
+				<feeName>其他项目清单费用</feeName>
+				<feeExpr>0</feeExpr>
+				<feeResult>0</feeResult>
+			</fee>
+			<fee>
+				<feeName>规费</feeName>
+				<feeExpr>0</feeExpr>
+				<feeResult>0</feeResult>
+			</fee>
+			<fee>
+				<feeName>税金</feeName>
+				<feeExpr>0</feeExpr>
+				<feeResult>0</feeResult>
+			</fee>
+		</fee>
+		<fee>
+			<feeName>工程总造价</feeName>
+			<feeExpr>[单位工程工程费合计]+[单项工程费用合计]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</单项工程>
+	<单位工程>
+		<fee>
+			<feeName>分部分项工程量清单费用</feeName>
+			<feeExpr>{f:nm($c/cost[costType='分部分项'], '综合合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>措施项目清单费用</feeName>
+			<feeExpr>0</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>其他项目清单费用</feeName>
+			<feeExpr>0</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>规费</feeName>
+			<feeExpr>0</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>税金</feeName>
+			<feeExpr>0</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>工程总造价</feeName>
+			<feeExpr>[分部分项工程量清单费用]+[措施项目清单费用]+[其他项目清单费用]+[规费]+[税金]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</单位工程>
+	<分部分项>
+		<fee>
+			<feeName>人工费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='清单'], '人工费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>材料费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='清单'], '材料费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>机械费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='清单'], '机械费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>直接费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='清单'], '直接费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>综合合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='清单'], '综合合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</分部分项>
+	<清单>
+		<fee>
+			<feeName>人工费</feeName>
+			<feeExpr>[人工费合价]/{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>人工费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='定额'], '人工费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>材料费</feeName>
+			<feeExpr>[材料费合价]/{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>材料费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='定额'], '材料费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>机械费</feeName>
+			<feeExpr>[机械费合价]/{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>机械费合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='定额'], '机械费合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>直接费</feeName>
+			<feeExpr>[人工费]+[材料费]+[机械费]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>直接费合价</feeName>
+			<feeExpr>[直接费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>综合单价</feeName>
+			<feeExpr>[综合合价]/{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>综合合价</feeName>
+			<feeExpr>{f:nm($c/cost[costType='定额'], '综合合价')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</清单>
+	<定额>
+		<fee>
+			<feeName>人工费</feeName>
+			<feeExpr>{f:nm($c/工料机[类型='人工'], '单价', '定额系数')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>人工费合价</feeName>
+			<feeExpr>[人工费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>材料费</feeName>
+			<feeExpr>{f:nm($c/工料机[类型='材料'], '单价', '定额系数')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>材料费合价</feeName>
+			<feeExpr>[材料费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>机械费</feeName>
+			<feeExpr>{f:nm($c/工料机[类型='机械'], '单价', '定额系数')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>机械费合价</feeName>
+			<feeExpr>[机械费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>直接费</feeName>
+			<feeExpr>[人工费]+[材料费]+[机械费]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>直接费合价</feeName>
+			<feeExpr>[直接费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>管理费</feeName>
+			<feeExpr>[人工费]+[材料费]+[机械费]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>管理费合价</feeName>
+			<feeExpr>[管理费]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>利润</feeName>
+			<feeExpr>[人工费]+[材料费]+[机械费]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>利润合价</feeName>
+			<feeExpr>[利润]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>综合单价</feeName>
+			<feeExpr>[直接费]+[管理费]+[利润]</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+		<fee>
+			<feeName>综合合价</feeName>
+			<feeExpr>[综合单价]*{f:u($c, '工程量')}</feeExpr>
+			<feeResult>0</feeResult>
+		</fee>
+	</定额>
+</fees>

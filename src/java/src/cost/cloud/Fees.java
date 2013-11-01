@@ -51,13 +51,13 @@ public class Fees {
 
 			// 费用求值拓扑排序
 			Map<String, List<String>> neighbors = new HashMap<String, List<String>>();
-			NodeList fees = doc.getElementsByTagName("费用");
+			NodeList fees = doc.getElementsByTagName("fee");
 			// 有向图邻接表
 			for (int i = 0; i < fees.getLength(); i++) {
 				Element e = (Element) fees.item(i);
-				String name = e.getElementsByTagName("费用名称").item(0)
+				String name = e.getElementsByTagName("feeName").item(0)
 						.getTextContent();
-				String rule = e.getElementsByTagName("计算公式").item(0)
+				String rule = e.getElementsByTagName("feeExpr").item(0)
 						.getTextContent();
 
 				if (!neighbors.containsKey(name)) {
@@ -118,9 +118,9 @@ public class Fees {
 			XPathFactory xpathFactory = XPathFactory.newInstance();
 			XPath xpath = xpathFactory.newXPath();
 			for (int i = 0; i < calcOrders.size(); i++) {
-				Element fee = (Element) xpath.evaluate("//费用[费用名称='"
+				Element fee = (Element) xpath.evaluate("//fee[feeName='"
 						+ calcOrders.get(i) + "']", doc, XPathConstants.NODE);
-				String expr = fee.getElementsByTagName("计算公式").item(0)
+				String expr = fee.getElementsByTagName("feeExpr").item(0)
 						.getTextContent();
 				Pattern pattern = Pattern.compile("\\[([^\\]]*)\\]");
 				Matcher matcher = pattern.matcher(expr);
@@ -128,17 +128,17 @@ public class Fees {
 					String from = matcher.group();
 
 					String to = ((Element) xpath.evaluate(
-							"//费用[费用名称='"
+							"//fee[feeName='"
 									+ from.substring(1, from.length() - 1)
 									+ "']", doc, XPathConstants.NODE))
-							.getElementsByTagName("计算结果").item(0)
+							.getElementsByTagName("feeResult").item(0)
 							.getTextContent();
 
 					expr = expr.replace(from, to);
 				}
 
 				Calculable calc = new ExpressionBuilder(expr).build();
-				fee.getElementsByTagName("计算结果").item(0)
+				fee.getElementsByTagName("feeResult").item(0)
 						.setTextContent(Double.toString(calc.calculate()));
 			}
 
