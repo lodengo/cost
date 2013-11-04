@@ -110,7 +110,7 @@ public class Fees {
 
 			// 费用计算循环依赖
 			if (calcOrders.size() != neighbors.size()) {
-				return null;
+				return xml;
 			}
 
 			Collections.reverse(calcOrders);
