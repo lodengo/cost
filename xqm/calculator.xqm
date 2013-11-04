@@ -15,9 +15,11 @@ declare updating function c:calc($file as xs:string, $id as xs:string){
 	      xquery:eval(concat("import module namespace f = 'cost.cloud.calculator.func';", serialize($fee/feeExpr)), map{'$f' := $fee, '$c':=$u})   
 	   )
 	   return $c
+	 return try{
 	 let $result := parse-xml(fees:calculate(serialize($n))) return (
 	   for $fee in $result//fee return replace value of node $u/fees//fee[feeName=$fee/feeName/text()]/feeResult with $fee/feeResult/text(), 
 	   let $parentid := $u/../costId/text() return 
 	     if($parentid) then db:output(concat($parentid, '')) else ()       
-	 )     
+	 )
+	 } catch * {()}	     
 };

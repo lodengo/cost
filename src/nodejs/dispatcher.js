@@ -172,7 +172,7 @@ Dispatcher.prototype.dispatch = function(){
 };
 
 var dispatcher = new Dispatcher();
-setInterval(function(){dispatcher.dispatch();}, 100);
+setInterval(function(){dispatcher.dispatch();}, 10);
 //dispatcher.dispatch();
 
 
