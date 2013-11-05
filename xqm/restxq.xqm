@@ -54,10 +54,14 @@ declare
 %rest:form-param("name","{$name}")
 %rest:form-param("value","{$value}") 
 updating function web:UpdateNode($file as xs:string, $id as xs:string, $name as xs:string, $value as xs:string){
-  let $n := doc($file)//cost[costId=$id] return(
-    replace value of node $n/node()[name()=$name] with $value,
-    web:NodeDirty($file, $n)
-  )
+  let $n := doc($file)//cost[costId=$id] return
+  if($n) then(
+    let $target := $n/node()[name()=$name] return
+    if($target) then (
+       replace value of node $target with $value,
+       web:NodeDirty($file, $n)
+    ) else ()   
+  ) else ()
 };
 
 declare
@@ -65,8 +69,9 @@ declare
 %rest:form-param("file","{$file}")
 %rest:form-param("id","{$id}") 
 updating function web:DeleteNode($file as xs:string, $id as xs:string){
-  let $n := doc($file)//cost[costId=$id] return(
+  let $n := doc($file)//cost[costId=$id] return
+  if ($n) then(
     delete node $n,
     web:NodeDirty($file, $n/parent::node())
-  )
+  ) else ()
 };
