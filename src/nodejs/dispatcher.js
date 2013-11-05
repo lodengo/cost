@@ -156,10 +156,10 @@ Dispatcher.prototype.removeDoneJOb = function(doneJob, doneTasks, callback){
 Dispatcher.prototype.dispatch = function(){
 	var me = this;
 	me.fetchJob(function(err, job){		
-		//process.nextTick(function(){me.dispatch();});
-		//setTimeout(function(){me.dispatch();}, 2000);
-		console.log('fetch job db:'+job);
+		process.nextTick(function(){me.dispatch();});
+		//setTimeout(function(){me.dispatch();}, 2000);		
 		if(job){
+			console.log('fetch job db:'+job);
 			workersPool.acquire(function(err, worker){
 				worker.doJob(job, function(doneJob, doneTasks, score, newTasks){
 					console.log(['job done:', doneJob, doneTasks, score, newTasks]);
@@ -172,8 +172,8 @@ Dispatcher.prototype.dispatch = function(){
 };
 
 var dispatcher = new Dispatcher();
-setInterval(function(){dispatcher.dispatch();}, 10);
-//dispatcher.dispatch();
+//setInterval(function(){dispatcher.dispatch();}, 10);
+dispatcher.dispatch();
 
 
 	

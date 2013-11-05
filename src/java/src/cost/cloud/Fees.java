@@ -169,6 +169,7 @@ public class Fees {
 		StringBuilder xml = new StringBuilder();
 		xml.append("<fees>");
 		for (Entry<String, Double> entry : results.entrySet()) {
+			xml.append("<fee>");
 			xml.append("<feeName>");
 			xml.append(entry.getKey());
 			xml.append("</feeName>");
@@ -176,6 +177,7 @@ public class Fees {
 			xml.append("<feeResult>");
 			xml.append(entry.getValue());
 			xml.append("</feeResult>");
+			xml.append("</fee>");
 		}
 		xml.append("</fees>");
 
