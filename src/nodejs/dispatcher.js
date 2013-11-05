@@ -1,6 +1,7 @@
 var poolModule = require('generic-pool');
 var basex = require('simple-basex'); 
 var redis = require("redis");
+var async = require("async");
 
 var workers = [{host:'localhost', port:1984, username:'admin', password:'admin'}];
 
@@ -107,24 +108,24 @@ Dispatcher.prototype.fetchJob = function(callback){
 
 Dispatcher.prototype.jobDone = function(doneJob, doneTasks, score, newTasks){
 	var me = this;
-	me.removeDoneJOb(doneJob, doneTasks, function(err, res){
-		if(newTasks.length){
-			newTasks.forEach(function(task){
-				me.addJob(doneJob, task, score-1)
-			});
-		}
-	});
+	async.each(newTasks, function(task, callback){ me.addJob(doneJob, task, score-1, callback);}, function(err){
+		me.removeDoneJOb(doneJob, doneTasks, function(err, res){
+			
+		});
+	});	
 }
 
-Dispatcher.prototype.addJob = function(job, task, score){
+Dispatcher.prototype.addJob = function(job, task, score, callback){
 	redisPool.acquire(function(err, redisClient){
 		redisClient.zscore(job, task, function(err, res){
 			if(null === res){
 				redisClient.zadd(job, score, task, function(err,res){
 					redisPool.release(redisClient);
+					callback(null);
 				});
 			}else{
 				redisPool.release(redisClient);
+				callback(null);
 			}				
 		});
 	});
